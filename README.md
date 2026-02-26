@@ -1,56 +1,53 @@
 ﻿# Jornada dos Sonhos
 
-> Agente conversacional de planejamento financeiro por metas: transforma um sonho em plano matemático com simulação e controles de risco.
+App Streamlit de assistente financeiro com base de conhecimento local e Ollama.
 
-## O que é
+## Visao geral
 
-A `Jornada` pergunta primeiro sobre o objetivo de vida e só depois converte isso em números.
+- Interface de chat em Streamlit.
+- Contexto construído com arquivos em `data/`.
+- Prompt de sistema carregado de `docs/03-prompts.md`.
+- Conexao com Ollama em `http://localhost:11434/api/generate` (ou `127.0.0.1` como fallback).
+- Pos-processamento de texto para reduzir caracteres estranhos e normalizar `R$`.
 
-Fluxo principal:
-1. Descoberta do sonho em linguagem natural.
-2. Estimativa inicial de custo com faixa segura.
-3. Coleta de prazo e valor já guardado.
-4. Simulação de aporte mensal com juros compostos em dois cenários.
+## Estrutura
 
-## Diferencial
-
-- Conversa guiada por etapas para evitar respostas soltas.
-- Persistência de contexto por usuário em `data/jornada_contexto.json`.
-- Choque de realidade com mensagem humanizada quando o aporte fica inviável para a renda.
-- Guardrails explícitos para evitar promessa de rendimento e recomendação de ativo.
-
-## Motor de simulação
-
-A aplicação calcula o aporte mensal necessário para atingir a meta (`PMT`) em dois cenários simulados:
-
-- Conservador: `0,5%` ao mês.
-- Moderado: `0,8%` ao mês.
-
-O resultado é educativo e comparativo, sem caráter de recomendação financeira.
-
-## Arquitetura
-
-```mermaid
-flowchart TD
-    A[Usuário] --> B[Streamlit]
-    B --> C[Orquestrador de Etapas]
-    C --> D[Motor Matemático PMT]
-    C --> E[Contexto Persistente JSON]
-    C --> F[Ollama opcional para estilo]
-    D --> G[Resposta com cenários e alertas]
-    E --> G
-    F --> G
+```text
+JornadaDosSonhos/
+  src/
+    app.py
+    README.md
+  data/
+    perfil_investidor.json
+    produtos_financeiros.json
+    jornada_contexto.json
+    transacoes.csv
+    historico_atendimento.csv
+  docs/
+    01-documentacao-agente.md
+    02-base-conhecimento.md
+    03-prompts.md
+    04-metricas.md
+    05-pitch.md
+    06-riscos-e-controles.md
 ```
+
+## Requisitos
+
+- Python 3.11+
+- `streamlit`
+- `requests`
+- Ollama (obrigatorio)
 
 ## Como executar
 
-1. Instale dependências:
+1. Instale dependencias:
 
 ```bash
 pip install streamlit requests
 ```
 
-2. (Opcional) Ative o Ollama para respostas mais naturais:
+2. Inicie o Ollama:
 
 ```bash
 ollama pull gpt-oss
@@ -63,10 +60,16 @@ ollama serve
 streamlit run src/app.py
 ```
 
-## Segurança e risco
+4. Acesse `http://localhost:8501`.
 
-- O app se declara educativo e não recomenda produtos específicos.
-- Entradas inválidas são tratadas antes de calcular.
-- O sistema não depende do LLM para a matemática principal.
-- Se o LLM falhar, o app responde com fallback determinístico.
-- Riscos e mitigações completos: `docs/06-riscos-e-controles.md`.
+## Configuracao no app
+
+Na barra lateral:
+- `URL API`: endpoint do Ollama.
+- `Modelo`: modelo usado na geracao (ex.: `gpt-oss`).
+- `Timeout de leitura (s)`: aumenta tolerancia para modelos pesados.
+
+## Observacoes
+
+- Sem Ollama ativo, o agente nao responde.
+- O projeto usa dados locais de exemplo e nao deve ser tratado como recomendacao financeira.

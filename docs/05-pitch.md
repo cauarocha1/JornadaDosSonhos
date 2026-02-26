@@ -1,26 +1,22 @@
 ﻿# Pitch (3 minutos) - Jornada dos Sonhos
 
-## Estrutura
+## Problema
 
-| Tempo | Seção | Conteúdo |
-|---|---|---|
-| 0:00 - 0:30 | Problema | Sonhos sem plano viram frustração financeira |
-| 0:30 - 1:30 | Solução | Conversa guiada + simulação matemática |
-| 1:30 - 2:30 | Demo | Meta viável e meta inviável com ajuste |
-| 2:30 - 3:00 | Diferencial | Risco tratado por design e fallback sem LLM |
+Pessoas acumulam duvidas financeiras, mas nao conseguem transformar informacao em plano pratico.
 
-## Roteiro
+## Solucao
 
-### Problema
-"Muita gente sabe o que quer viver, mas não sabe transformar isso em meta com prazo e aporte mensal realista."
+A Jornada oferece um chat com contexto local e respostas educativas para organizar metas financeiras.
 
-### Solução
-"A Jornada coleta sonho, valor-meta, prazo e valor inicial. Depois calcula o aporte em dois cenários e alerta quando o plano aperta demais a renda."
+## Demo recomendada
 
-### Demo
-1. Intercâmbio: mostrar cálculo completo.
-2. Meta agressiva: mostrar intervenção de viabilidade.
-3. Desligar Ollama: mostrar que o app continua funcional.
+1. Abrir o app no Streamlit.
+2. Mostrar uma pergunta de planejamento com valores reais.
+3. Ajustar timeout na barra lateral para um modelo pesado.
+4. Mostrar resposta com moeda formatada e texto limpo.
 
-### Diferencial
-"A matemática não depende do modelo generativo. O LLM só melhora a linguagem. Isso reduz risco de alucinação e aumenta confiabilidade."
+## Diferenciais
+
+- Executa localmente com Ollama.
+- Base de conhecimento controlada no repositorio.
+- Fallback de URL e mensagens de erro claras.

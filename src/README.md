@@ -1,6 +1,6 @@
-﻿# Passo a Passo de Execução
+﻿# Execucao rapida
 
-## Dependências
+## Dependencias
 
 ```bash
 pip install streamlit requests
@@ -13,12 +13,16 @@ ollama pull gpt-oss
 ollama serve
 ```
 
-## Execução
+## Rodar aplicacao
 
 ```bash
-streamlit run .\src\app.py
+streamlit run src/app.py
 ```
 
-## Observação
+## Endereco
 
-Sem Ollama, a aplicação continua funcional usando respostas determinísticas.
+`http://localhost:8501`
+
+## Dica
+
+Se o modelo demorar para responder, aumente `Timeout de leitura (s)` na barra lateral.

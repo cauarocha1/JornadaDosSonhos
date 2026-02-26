@@ -1,8 +1,8 @@
-# Assets
+﻿# Assets
 
-Esta pasta é destinada a recursos visuais do seu projeto:
+Pasta reservada para materiais visuais do projeto:
 
-- Diagramas de arquitetura
-- Screenshots da aplicação
-- Mockups de interface
-- Imagens para o README
+- Diagramas
+- Screenshots
+- Mockups
+- Imagens de documentacao

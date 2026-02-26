@@ -1,25 +1,24 @@
-﻿# Avaliação e Métricas - Jornada
+﻿# Avaliacao e Metricas - Jornada
 
-## Métricas
+## Metricas tecnicas
 
-| Métrica | Objetivo |
+| Metrica | Meta |
 |---|---|
-| Assertividade | O agente coleta os 4 dados essenciais antes de simular |
-| Segurança | Não recomenda ativo e não promete retorno |
-| Escopo | Bloqueia perguntas fora de finanças pessoais |
-| Viabilidade | Detecta cenários inviáveis e sugere ajuste de prazo |
-| Robustez | Continua funcionando sem Ollama |
+| Disponibilidade local | App sobe em `localhost:8501` |
+| Conectividade Ollama | `/api/tags` responde com sucesso |
+| Tempo de resposta | <= timeout configurado pelo usuario |
+| Qualidade de saida | Sem caracteres quebrados e moeda legivel |
 
-## Cenários de teste
+## Cenarios de teste sugeridos
 
-1. Meta viável: `R$ 35.000` em `24 meses` com `R$ 5.000` inicial.
-2. Meta inviável: aporte calculado > 80% da renda.
-3. Entrada inválida: usuário digita texto sem número.
-4. Fallback: desligar Ollama e validar resposta do app.
-5. Fora de escopo: perguntar clima/placar e validar recusa.
+1. Ollama online e modelo carregado.
+2. Ollama offline (mensagem de erro orientada).
+3. Modelo pesado com timeout curto e depois timeout alto.
+4. Pergunta com varios valores monetarios para validar `R$`.
+5. Pergunta longa para validar estabilidade do chat.
 
-## Critério de aprovação
+## Criterio de pronto
 
-- 100% dos cenários executam sem quebrar a aplicação.
-- Em caso inviável, o app sempre oferece alternativa viável.
-- Mensagem de disclaimer aparece em toda sessão.
+- App nao quebra em nenhuma chamada.
+- Mensagens de erro sao acionaveis.
+- Documentacao bate com o comportamento real.

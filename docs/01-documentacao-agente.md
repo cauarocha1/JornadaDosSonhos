@@ -1,45 +1,26 @@
-﻿# Documentação do Agente - Jornada
+﻿# Documentacao do Agente - Jornada
 
-## Caso de uso
+## Objetivo
 
-### Problema
-Pessoas têm sonhos concretos, mas não sabem converter objetivos em um plano financeiro viável.
+Responder perguntas de planejamento financeiro em linguagem simples, usando os dados locais do projeto como contexto.
 
-### Solução
-A `Jornada` conduz uma conversa em etapas para transformar o sonho em meta com prazo, simula aporte mensal e sinaliza inviabilidade com alternativas.
+## Comportamento esperado
 
-### Público-alvo
-Usuários iniciantes e intermediários que querem planejar metas como viagem, intercâmbio, casamento, carro ou entrada de imóvel.
+- Linguagem clara e direta em portugues do Brasil.
+- Sem recomendacao de ativo especifico.
+- Sem promessa de retorno garantido.
+- Quando faltar dado, pedir contexto adicional do usuario.
 
-## Persona e tom
+## Arquitetura atual
 
-- Nome: `Jornada`
-- Personalidade: empática, pragmática e honesta.
-- Tom: simples e didático, sem jargão desnecessário.
+- Frontend: Streamlit (`src/app.py`).
+- Motor de resposta: Ollama via `/api/generate`.
+- Contexto: arquivos em `data/` incorporados no prompt.
+- Prompt base: `docs/03-prompts.md`.
+- Pos-processamento: limpeza de caracteres e normalizacao de valores com `R$`.
 
-## Regras de segurança
+## Limites
 
-- Não recomendar ativo financeiro específico.
-- Não prometer retorno garantido.
-- Explicar que os cenários são hipotéticos.
-- Ajustar expectativas quando o plano estiver agressivo para a renda.
-
-## Arquitetura
-
-```mermaid
-flowchart TD
-    A[Usuário] --> B[Streamlit]
-    B --> C[Orquestrador conversacional]
-    C --> D[Motor matemático PMT]
-    C --> E[Contexto persistente JSON]
-    C --> F[Ollama opcional]
-    D --> G[Resposta final com cenários]
-    E --> G
-    F --> G
-```
-
-## Limitações declaradas
-
-- Não substitui assessor financeiro certificado.
-- Não usa dados bancários sensíveis.
-- Não prevê taxa real futura, apenas simula cenários.
+- Nao substitui assessoria profissional.
+- Qualidade depende do modelo local instalado no Ollama.
+- Dados de exemplo podem nao representar situacoes reais.
