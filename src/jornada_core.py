@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import csv
+=======
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
 import json
 import re
 import unicodedata
@@ -9,6 +12,7 @@ import requests
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODELO = "gpt-oss"
 
+<<<<<<< HEAD
 SCOPE_BLOCK_MESSAGE = (
     "Eu so respondo assuntos de financas pessoais e planejamento de metas. "
     "Posso te ajudar com sonhos, metas, simulacoes e organizacao financeira."
@@ -48,6 +52,96 @@ def normalize_text(text: str):
     normalized = unicodedata.normalize("NFKD", text or "")
     ascii_text = normalized.encode("ascii", "ignore").decode("ascii")
     return re.sub(r"\s+", " ", ascii_text).strip().lower()
+=======
+ESTIMATIVAS_SONHOS = {
+    "intercambio": {
+        "keywords": ["intercambio", "dublin", "curso no exterior"],
+        "faixa": [30000.0, 45000.0],
+        "observacao": "estimativa para 6 meses com estudo e custo de vida",
+    },
+    "viagem_internacional": {
+        "keywords": ["viagem", "europa", "japao", "canada"],
+        "faixa": [18000.0, 35000.0],
+        "observacao": "estimativa para 2 a 3 semanas, sem luxo",
+    },
+    "casamento": {
+        "keywords": ["casamento", "festa", "cerimonia"],
+        "faixa": [35000.0, 90000.0],
+        "observacao": "estimativa para evento de porte medio",
+    },
+    "carro": {
+        "keywords": ["carro", "automovel", "veiculo"],
+        "faixa": [55000.0, 130000.0],
+        "observacao": "estimativa para compra de carro de entrada a intermediario",
+    },
+    "entrada_imovel": {
+        "keywords": ["apartamento", "imovel", "casa", "entrada"],
+        "faixa": [50000.0, 180000.0],
+        "observacao": "estimativa para entrada de imovel em grandes centros",
+    },
+}
+
+OFF_TOPIC_KEYWORDS = [
+    "clima",
+    "tempo",
+    "temperatura",
+    "chuva",
+    "sol",
+    "previsao",
+    "futebol",
+    "jogo",
+    "resultado",
+    "placar",
+    "campeonato",
+    "gol",
+    "partida",
+    "time",
+    "filme",
+    "serie",
+    "receita",
+    "cozinha",
+    "musica",
+]
+OFF_TOPIC_KEYWORDS_NORMALIZED = [
+    unicodedata.normalize("NFKD", k).encode("ascii", "ignore").decode("ascii").lower()
+    for k in OFF_TOPIC_KEYWORDS
+]
+
+SCOPE_BLOCK_MESSAGE = (
+    "Eu so respondo assuntos de financas pessoais e planejamento de metas. "
+    "Posso te ajudar com orcamento, poupanca, investimentos de forma educativa e simulacao de metas."
+)
+
+SYSTEM_PROMPT_JORNADA = """Voce e a Jornada, uma planejadora financeira amigavel e didatica.
+
+OBJETIVO:
+Transformar sonhos em metas matematicas de forma simples e segura.
+
+REGRAS:
+- NUNCA recomende investimentos especificos como ordem de compra;
+- NUNCA prometa rendimento futuro;
+- JAMAIS responda perguntas fora de financas pessoais;
+- Se nao souber algo, admita com transparencia e ofereca explicacao educativa;
+- Sempre mantenha linguagem simples, direta e sem jargao desnecessario;
+- Sempre pergunte no final se a pessoa quer ajustar prazo, valor-meta ou aporte;
+- Responda em no maximo 3 paragrafos curtos.
+"""
+
+
+def _normalize_text(text: str):
+    normalized = unicodedata.normalize("NFKD", text)
+    ascii_text = normalized.encode("ascii", "ignore").decode("ascii")
+    return ascii_text.lower()
+
+
+def detect_out_of_scope(text: str):
+    if not text:
+        return None
+    normalized = _normalize_text(text)
+    if any(keyword in normalized for keyword in OFF_TOPIC_KEYWORDS_NORMALIZED):
+        return SCOPE_BLOCK_MESSAGE
+    return None
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
 
 
 def load_json(path: Path, fallback):
@@ -69,6 +163,7 @@ def save_json(path: Path, payload):
 def parse_currency(text: str):
     if not text:
         return None
+<<<<<<< HEAD
     raw = normalize_text(text).replace("r$", "").replace(" ", "")
     if "," in raw and "." in raw:
         raw = raw.replace(".", "").replace(",", ".")
@@ -82,6 +177,13 @@ def parse_currency(text: str):
             # Heuristica BR: "35.000" -> 35000
             if len(right) == 3 and left.isdigit() and right.isdigit():
                 raw = left + right
+=======
+    raw = text.lower().replace("r$", "").replace(" ", "")
+    if "," in raw and "." in raw:
+        raw = raw.replace(".", "").replace(",", ".")
+    else:
+        raw = raw.replace(",", ".")
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
     match = re.search(r"-?\d+(?:\.\d+)?", raw)
     if not match:
         return None
@@ -92,7 +194,11 @@ def parse_currency(text: str):
 def parse_months(text: str):
     if not text:
         return None
+<<<<<<< HEAD
     base = normalize_text(text)
+=======
+    base = _normalize_text(text)
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
     years = re.search(r"(\d+)\s*(ano|anos)", base)
     months = re.search(r"(\d+)\s*(mes|meses)", base)
     if years:
@@ -105,6 +211,7 @@ def parse_months(text: str):
     return None
 
 
+<<<<<<< HEAD
 def format_currency(value: float):
     return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
@@ -281,6 +388,13 @@ def estimate_goal_by_keywords(dream_name: str):
     for keywords, faixa, obs in table:
         if any(keyword in normalized for keyword in keywords):
             return faixa, obs
+=======
+def estimate_goal_by_keywords(dream: str):
+    text = _normalize_text(dream)
+    for item in ESTIMATIVAS_SONHOS.values():
+        if any(keyword in text for keyword in item["keywords"]):
+            return item["faixa"], item["observacao"]
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
     return (15000.0, 50000.0), "faixa generica para metas de medio porte"
 
 
@@ -305,10 +419,17 @@ def compute_scenarios(goal_value: float, initial_amount: float, months: int):
 def months_for_budget(goal_value: float, initial_amount: float, budget: float, monthly_rate: float):
     if budget <= 0:
         return None
+<<<<<<< HEAD
     for month in range(1, 721):
         required = pmt_for_goal(goal_value, initial_amount, month, monthly_rate)
         if required <= budget:
             return month
+=======
+    for m in range(1, 721):
+        required = pmt_for_goal(goal_value, initial_amount, m, monthly_rate)
+        if required <= budget:
+            return m
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
     return None
 
 
@@ -323,6 +444,7 @@ def feasible_feedback(aporte: float, renda_mensal: float, goal_value: float, ini
     suggested_months = months_for_budget(goal_value, initial_amount, budget, 0.008)
     if suggested_months:
         return (
+<<<<<<< HEAD
             f"Guardar {format_currency(aporte)} por mes consumiria {ratio:.0%} da sua renda. "
             f"Para manter viabilidade, podemos mirar {format_currency(budget)}/mes e prazo de {suggested_months} meses."
         )
@@ -472,3 +594,52 @@ def generate_agent_reply(
         user_message=user_message,
     )
     return ollama_generate(prompt)
+=======
+            f"Guardar R$ {aporte:,.2f} por mes consumiria {ratio:.0%} da sua renda. "
+            f"Para uma jornada viavel, podemos mirar cerca de R$ {budget:,.2f}/mes e estender para "
+            f"{suggested_months} meses."
+        )
+
+    return (
+        f"Guardar R$ {aporte:,.2f} por mes consumiria {ratio:.0%} da sua renda. "
+        "Mesmo alongando bastante o prazo, a meta ainda ficaria agressiva. "
+        "Podemos reduzir o valor-alvo ou dividir a meta em fases."
+    )
+
+
+def format_currency(value: float):
+    return f"R$ {value:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def ollama_generate(prompt: str):
+    try:
+        response = requests.post(
+            OLLAMA_URL,
+            json={"model": MODELO, "prompt": prompt, "stream": False},
+            timeout=15,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        return payload.get("response", "").strip()
+    except (requests.RequestException, ValueError, KeyError):
+        return ""
+
+
+def empathetic_wrap(core_text: str, dream_name: str, user_context: str = ""):
+    style_prompt = f"""
+{SYSTEM_PROMPT_JORNADA}
+
+CONTEXTO DO CLIENTE:
+- sonho: {dream_name}
+{user_context}
+
+INSTRUCAO:
+Reescreva a mensagem base preservando todos os numeros e limites.
+Se faltar informacao, admita com clareza.
+
+MENSAGEM BASE:
+{core_text}
+"""
+    llm_text = ollama_generate(style_prompt)
+    return llm_text if llm_text else core_text
+>>>>>>> 37ed0d9abeb5cea0474d5dfcf63ae59aa0e755e0
