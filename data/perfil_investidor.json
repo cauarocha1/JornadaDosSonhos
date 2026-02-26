@@ -1,0 +1,23 @@
+﻿{
+  "nome": "Camila Rocha",
+  "idade": 29,
+  "profissao": "Designer de Produto",
+  "renda_mensal": 7200.0,
+  "perfil_investidor": "iniciante",
+  "objetivo_principal": "Intercambio em Dublin em 24 meses",
+  "patrimonio_total": 18500.0,
+  "reserva_emergencia_atual": 12000.0,
+  "aceita_risco": false,
+  "metas": [
+    {
+      "meta": "Intercambio em Dublin",
+      "valor_necessario": 42000.0,
+      "prazo": "2028-02"
+    },
+    {
+      "meta": "Entrada de apartamento",
+      "valor_necessario": 80000.0,
+      "prazo": "2030-12"
+    }
+  ]
+}

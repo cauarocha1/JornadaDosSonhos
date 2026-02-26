@@ -1,0 +1,26 @@
+﻿[
+  {
+    "nome": "Cenario Conservador",
+    "categoria": "simulacao",
+    "risco": "baixo",
+    "taxa_mensal": 0.005,
+    "descricao": "Referencia educativa para poupanca e produtos de baixa oscilacao",
+    "uso_no_app": "Comparar aporte mensal em meta de sonho"
+  },
+  {
+    "nome": "Cenario Moderado",
+    "categoria": "simulacao",
+    "risco": "medio",
+    "taxa_mensal": 0.008,
+    "descricao": "Referencia educativa para simulacao com rendimento superior ao conservador",
+    "uso_no_app": "Mostrar impacto de taxa no prazo e no aporte"
+  },
+  {
+    "nome": "Regra de Viabilidade",
+    "categoria": "controle",
+    "risco": "protecao",
+    "limite_percentual_renda": 0.8,
+    "descricao": "Se o aporte mensal superar 80% da renda, a Jornada sugere ajuste de prazo",
+    "uso_no_app": "Prevenir plano inviavel"
+  }
+]

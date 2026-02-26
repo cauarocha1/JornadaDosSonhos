@@ -1,0 +1,47 @@
+﻿{
+  "user_001": {
+    "id_usuario": "user_001",
+    "nome_sonho": "Intercambio em Dublin",
+    "valor_meta": 42000.0,
+    "prazo_meses": 24,
+    "valor_inicial": 6000.0,
+    "perfil_risco": "iniciante",
+    "renda_mensal": 7200.0,
+    "etapa": "concluido",
+    "faixa_estimativa": [
+      30000.0,
+      45000.0
+    ],
+    "updated_at": "2026-02-20T18:45:00+00:00"
+  },
+  "user_002": {
+    "id_usuario": "user_002",
+    "nome_sonho": "Entrada de apartamento",
+    "valor_meta": 90000.0,
+    "prazo_meses": 48,
+    "valor_inicial": 15000.0,
+    "perfil_risco": "iniciante",
+    "renda_mensal": 9800.0,
+    "etapa": "renda",
+    "faixa_estimativa": [
+      50000.0,
+      180000.0
+    ],
+    "updated_at": "2026-02-24T11:10:00+00:00"
+  },
+  "user_003": {
+    "id_usuario": "user_003",
+    "nome_sonho": "Casamento",
+    "valor_meta": 60000.0,
+    "prazo_meses": 30,
+    "valor_inicial": 3000.0,
+    "perfil_risco": "iniciante",
+    "renda_mensal": 5400.0,
+    "etapa": "concluido",
+    "faixa_estimativa": [
+      35000.0,
+      90000.0
+    ],
+    "updated_at": "2026-02-25T09:30:00+00:00"
+  }
+}

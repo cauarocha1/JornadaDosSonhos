@@ -1,0 +1,13 @@
+﻿data,descricao,categoria,valor,tipo
+2025-11-01,Salario,receita,7200.00,entrada
+2025-11-02,Aluguel,moradia,1850.00,saida
+2025-11-03,Supermercado,alimentacao,690.00,saida
+2025-11-04,Transporte publico,transporte,240.00,saida
+2025-11-05,Aporte meta intercambio,planejamento_sonho,1200.00,saida
+2025-11-08,Internet e celular,servicos,180.00,saida
+2025-11-10,Plano de saude,saude,420.00,saida
+2025-11-12,Lazer,lazer,260.00,saida
+2025-11-15,Aporte extra meta intercambio,planejamento_sonho,500.00,saida
+2025-11-22,Freelance UI,receita_extra,900.00,entrada
+2025-11-25,Conta de luz,moradia,210.00,saida
+2025-11-28,Reserva de emergencia,planejamento,600.00,saida
