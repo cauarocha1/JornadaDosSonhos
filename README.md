@@ -1,4 +1,4 @@
-﻿# Jornada dos Sonhos
+# Jornada dos Sonhos
 
 App Streamlit de assistente financeiro com base de conhecimento local e Ollama.
 
@@ -7,8 +7,8 @@ App Streamlit de assistente financeiro com base de conhecimento local e Ollama.
 - Interface de chat em Streamlit.
 - Contexto construído com arquivos em `data/`.
 - Prompt de sistema carregado de `docs/03-prompts.md`.
-- Conexao com Ollama em `http://localhost:11434/api/generate` (ou `127.0.0.1` como fallback).
-- Pos-processamento de texto para reduzir caracteres estranhos e normalizar `R$`.
+- Conexão com Ollama em `http://localhost:11434/api/generate` (ou `127.0.0.1` como fallback).
+- Pós-processamento de texto para reduzir caracteres estranhos e normalizar `R$`.
 
 ## Estrutura
 
@@ -67,9 +67,9 @@ streamlit run src/app.py
 Na barra lateral:
 - `URL API`: endpoint do Ollama.
 - `Modelo`: modelo usado na geracao (ex.: `gpt-oss`).
-- `Timeout de leitura (s)`: aumenta tolerancia para modelos pesados.
+- `Timeout de leitura (s)`: aumenta tolerância para modelos pesados.
 
 ## Observacoes
 
-- Sem Ollama ativo, o agente nao responde.
-- O projeto usa dados locais de exemplo e nao deve ser tratado como recomendacao financeira.
+- Sem Ollama ativo, o agente não responde.
+- O projeto usa dados locais de exemplo e não deve ser tratado como recomendação financeira.
